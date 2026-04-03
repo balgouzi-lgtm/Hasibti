@@ -104,25 +104,29 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 
 @media(max-width:768px){
   .tools-grid{grid-template-columns:1fr}
-  .tool-card.span2,.tool-card.span1{grid-column:span 1}
-  .compound-stats{width:90px}
+  .tool-card.span2,.tool-card.span1{grid-column:span 1;padding:20px}
+  .tool-card{flex-direction:row-reverse;align-items:center}
+  .tool-card .material-symbols-outlined{font-size:28px}
+  .tool-card h4{font-size:16px;margin-bottom:4px}
+  .tool-card p{font-size:12px}
+  .compound-layout{flex-direction:column}
+  .compound-stats{width:100%;flex-direction:row;gap:6px}
+  .compound-stat{flex:1;min-width:0}
   .compound-stat .cs-value{font-size:13px}
   .compound-stat .cs-label{font-size:9px}
-  .compound-chart-wrap{height:250px}
+  .compound-chart-wrap{height:240px}
 }
 @media(max-width:400px){
   .g2{grid-template-columns:1fr}
   .g3{grid-template-columns:1fr 1fr}
   .grow{grid-template-columns:60px 1fr 1fr 60px 24px;gap:4px;padding:8px}
-  .compound-stats{width:80px}
-  .compound-stat{padding:8px 4px}
-  .compound-stat .cs-value{font-size:12px}
+  .compound-stats{flex-wrap:wrap}
+  .compound-stat{min-width:calc(50% - 3px);flex:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ==================== LANDING PAGE ==================== -->
 <div class="landing" id="landing">
 <header class="top-bar">
   <div class="logo-wrap"><div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div><span>حاسبتي المالية</span></div>
@@ -154,15 +158,12 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 </footer>
 </div>
 
-<!-- ==================== APP PAGE ==================== -->
 <div class="app-page" id="appPage">
 <header class="top-bar">
   <div class="logo-wrap"><div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div><span>حاسبتي المالية</span></div>
   <button class="back-link" onclick="goLanding()"><span>الرئيسية</span><span class="material-symbols-outlined" style="font-size:18px">arrow_back</span></button>
 </header>
-
 <div id="pageTitle" class="page-title">متوسط تكلفة الأسهم</div>
-
 <div class="container">
 
 <div class="page active" id="p-stocks">
@@ -254,40 +255,16 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 const pgs=['stocks','gold','zakat','profit','compound','currency','split','dividend','breakeven','loan'];
 const pgTitles={stocks:'متوسط تكلفة الأسهم',gold:'متوسط تكلفة الذهب',zakat:'حاسبة الزكاة',profit:'الربح والخسارة',compound:'الفائدة المركبة',currency:'محول العملات',split:'تقسيم الأسهم',dividend:'توزيعات الأرباح',breakeven:'نقطة التعادل',loan:'حاسبة القرض'};
 let specEnt=[],specId=0,mixEnt=[],mixId=0,curGoldMode='spec',chart=null;
-const defR={USD:1,SAR:3.75,EUR:0.92,GBP:0.79,AED:3.67,KWD:0.31,EGP:50.5,TRY:36.2};
-let lR=null;
-
+const defR={USD:1,SAR:3.75,EUR:0.92,GBP:0.79,AED:3.67,KWD:0.31,EGP:50.5,TRY:36.2};let lR=null;
 function fmt(n){return new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(n)}
 function fI(n){return new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(n))}
 function show(id){document.getElementById(id).style.display='block'}
 function hide(id){document.getElementById(id).style.display='none'}
 function V(id){return +(document.getElementById(id).value)||0}
-
-function openApp(page){
-  document.getElementById('landing').style.display='none';
-  document.getElementById('appPage').classList.add('active');
-  document.getElementById('bottomNav').style.display='flex';
-  if(page)go(page);else go('stocks');
-  window.scrollTo({top:0});
-  setTimeout(cC,100);
-}
-function goLanding(){
-  document.getElementById('landing').style.display='flex';
-  document.getElementById('appPage').classList.remove('active');
-  document.getElementById('bottomNav').style.display='none';
-  window.scrollTo({top:0});
-}
-function go(p){
-  pgs.forEach(t=>document.getElementById('p-'+t).classList.toggle('active',t===p));
-  document.querySelectorAll('.bnav-item').forEach((b,i)=>b.classList.toggle('active',i===pgs.indexOf(p)));
-  document.getElementById('pageTitle').textContent=pgTitles[p]||'';
-  if(p==='compound')setTimeout(cC,50);
-  if(p==='currency')cXR();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
+function openApp(page){document.getElementById('landing').style.display='none';document.getElementById('appPage').classList.add('active');document.getElementById('bottomNav').style.display='flex';if(page)go(page);else go('stocks');window.scrollTo({top:0});setTimeout(cC,100)}
+function goLanding(){document.getElementById('landing').style.display='flex';document.getElementById('appPage').classList.remove('active');document.getElementById('bottomNav').style.display='none';window.scrollTo({top:0})}
+function go(p){pgs.forEach(t=>document.getElementById('p-'+t).classList.toggle('active',t===p));document.querySelectorAll('.bnav-item').forEach((b,i)=>b.classList.toggle('active',i===pgs.indexOf(p)));document.getElementById('pageTitle').textContent=pgTitles[p]||'';if(p==='compound')setTimeout(cC,50);if(p==='currency')cXR();window.scrollTo({top:0,behavior:'smooth'})}
 function cS(){const cq=V('sq'),cp=V('sp'),nq=V('snq'),np=V('snp');const tq=cq+nq,tc=cq*cp+nq*np,avg=tq>0?tc/tq:0;if(tq>0){show('sr');document.getElementById('sa').textContent=fmt(avg);document.getElementById('stq').textContent=Math.round(tq);document.getElementById('stc').textContent=fmt(tc)}else hide('sr')}
-
 function goldMode(m){curGoldMode=m;document.getElementById('gm-spec').style.display=m==='spec'?'block':'none';document.getElementById('gm-mix').style.display=m==='mix'?'block':'none';document.getElementById('gb1').classList.toggle('active',m==='spec');document.getElementById('gb2').classList.toggle('active',m==='mix');hide('goldRes')}
 function makeGoldRow(id,prefix,container){const d=document.createElement('div');d.className='grow';d.id=prefix+'r'+id;d.innerHTML=`<div><label class="lbl" style="font-size:11px">العيار</label><select class="sel" id="${prefix}k${id}" onchange="calcGold()" style="padding:7px 4px;font-size:12px"><option value="24">٢٤</option><option value="21">٢١</option><option value="18">١٨</option></select></div><div><label class="lbl" style="font-size:11px">الجرامات</label><input class="inp" type="number" id="${prefix}g${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">سعر الجرام</label><input class="inp" type="number" id="${prefix}p${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">الناتج</label><div id="${prefix}v${id}" style="font-size:13px;font-weight:500;color:var(--gold);padding:8px 0">-</div></div><button class="rm" onclick="rmGold('${prefix}',${id})">✕</button>`;document.getElementById(container).appendChild(d)}
 function addSpec(){const id=specId++;specEnt.push(id);makeGoldRow(id,'s','specRows')}
@@ -295,21 +272,9 @@ function addMix(){const id=mixId++;mixEnt.push(id);makeGoldRow(id,'m','mixRows')
 function rmGold(prefix,id){if(prefix==='s')specEnt=specEnt.filter(e=>e!==id);else mixEnt=mixEnt.filter(e=>e!==id);const el=document.getElementById(prefix+'r'+id);if(el)el.remove();calcGold()}
 function sumRows(entries,prefix){let tg=0,tc=0;entries.forEach(id=>{const g=+(document.getElementById(prefix+'g'+id).value)||0,p=+(document.getElementById(prefix+'p'+id).value)||0,c=g*p;tg+=g;tc+=c;document.getElementById(prefix+'v'+id).textContent=c>0?fmt(c):'-'});return{tg,tc}}
 function calcGold(){let totalG=0,totalC=0;if(curGoldMode==='spec'){const r=sumRows(specEnt,'s');totalG=r.tg;totalC=r.tc}else{const og=V('oldG'),oc=V('oldC');if(og>0&&oc>0){document.getElementById('oldAvgLine').style.display='block';document.getElementById('oldAvg').textContent=fmt(oc/og)}else{document.getElementById('oldAvgLine').style.display='none'}totalG+=og;totalC+=oc;const r=sumRows(mixEnt,'m');totalG+=r.tg;totalC+=r.tc}if(totalG>0){show('goldRes');document.getElementById('goldAvg').textContent=fmt(totalC/totalG);document.getElementById('goldTG').textContent=fmt(totalG);document.getElementById('goldTC').textContent=fmt(totalC)}else hide('goldRes')}
-
 function cZ(){const net=V('zc')+V('zs')+V('zg')+V('zdo')-V('zd'),zk=net>0?net*0.025:0;if(net>0){show('zr');document.getElementById('za').textContent=fmt(zk);document.getElementById('zn').textContent=fmt(net)}else hide('zr')}
 function cP(){const b=V('pb'),s=V('ps'),q=V('pq'),f=V('pf');if(b>0&&s>0&&q>0){const pf=(s-b)*q-f,pct=((s-b)/b)*100;show('pr');const el=document.getElementById('pa');el.textContent=fmt(pf);el.className='rv '+(pf>=0?'pos':'neg');const pp=document.getElementById('pp');pp.textContent=(pct>=0?'+':'')+pct.toFixed(2)+'%';pp.className=pf>=0?'pos':'neg'}else hide('pr')}
-
-function cC(){
-  const P=V('ci'),r=V('cr')/100,yrs=parseInt(document.getElementById('cy').value)||1,con=V('cc');
-  const frq=document.getElementById('cf').value;document.getElementById('cyl').textContent=yrs;
-  const labels=[],dI=[],dIn=[];let bal=P,tC=P;
-  for(let y=0;y<=yrs;y++){labels.push(y===0?'٠':y);dI.push(Math.round(tC));dIn.push(Math.round(Math.max(0,bal-tC)));if(y<yrs){if(frq==='monthly'){for(let m=0;m<12;m++){bal+=con;tC+=con;bal*=(1+r/12)}}else if(frq==='yearly'){bal+=con;tC+=con;bal*=(1+r)}else bal*=(1+r)}}
-  const profit=Math.max(0,bal-tC);const pctProfit=tC>0?((bal-tC)/tC)*100:0;
-  document.getElementById('civ').textContent=fI(tC);document.getElementById('cin').textContent=fI(profit);document.getElementById('ctv').textContent=fI(bal);document.getElementById('cpct').textContent=(pctProfit>=0?'+':'')+pctProfit.toFixed(1)+'%';
-  if(chart)chart.destroy();
-  chart=new Chart(document.getElementById('cChart'),{type:'bar',data:{labels,datasets:[{label:'المساهمات',data:dI,backgroundColor:'#6edab4',borderRadius:{topLeft:0,topRight:0},barPercentage:0.7},{label:'الأرباح',data:dIn,backgroundColor:'#85B7EB',borderRadius:{topLeft:3,topRight:3},barPercentage:0.7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:'rtl',callbacks:{label:ctx=>ctx.dataset.label+': '+fI(ctx.raw)}}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},autoSkip:true,maxTicksLimit:15}},y:{stacked:true,grid:{color:'rgba(215,226,255,0.05)'},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},callback:v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}}}}});
-}
-
+function cC(){const P=V('ci'),r=V('cr')/100,yrs=parseInt(document.getElementById('cy').value)||1,con=V('cc');const frq=document.getElementById('cf').value;document.getElementById('cyl').textContent=yrs;const labels=[],dI=[],dIn=[];let bal=P,tC=P;for(let y=0;y<=yrs;y++){labels.push(y===0?'٠':y);dI.push(Math.round(tC));dIn.push(Math.round(Math.max(0,bal-tC)));if(y<yrs){if(frq==='monthly'){for(let m=0;m<12;m++){bal+=con;tC+=con;bal*=(1+r/12)}}else if(frq==='yearly'){bal+=con;tC+=con;bal*=(1+r)}else bal*=(1+r)}}const profit=Math.max(0,bal-tC);const pctProfit=tC>0?((bal-tC)/tC)*100:0;document.getElementById('civ').textContent=fI(tC);document.getElementById('cin').textContent=fI(profit);document.getElementById('ctv').textContent=fI(bal);document.getElementById('cpct').textContent=(pctProfit>=0?'+':'')+pctProfit.toFixed(1)+'%';if(chart)chart.destroy();chart=new Chart(document.getElementById('cChart'),{type:'bar',data:{labels,datasets:[{label:'المساهمات',data:dI,backgroundColor:'#6edab4',borderRadius:{topLeft:0,topRight:0},barPercentage:0.7},{label:'الأرباح',data:dIn,backgroundColor:'#85B7EB',borderRadius:{topLeft:3,topRight:3},barPercentage:0.7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:'rtl',callbacks:{label:ctx=>ctx.dataset.label+': '+fI(ctx.raw)}}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},autoSkip:true,maxTicksLimit:15}},y:{stacked:true,grid:{color:'rgba(215,226,255,0.05)'},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},callback:v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}}}}})}
 async function loadR(){try{const res=await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');const d=await res.json();if(d&&d.usd){lR={USD:1,SAR:d.usd.sar,EUR:d.usd.eur,GBP:d.usd.gbp,AED:d.usd.aed,KWD:d.usd.kwd,EGP:d.usd.egp,TRY:d.usd.try};document.getElementById('cxSt').textContent='أسعار محدّثة'}}catch(e){document.getElementById('cxSt').textContent='أسعار تقريبية'}cXR()}
 function gRt(){return lR||defR}
 function cXR(){const amt=V('cxA'),from=document.getElementById('cxF').value,to=document.getElementById('cxT').value;const rates=gRt(),inUSD=amt/rates[from],result=inUSD*rates[to],rate=rates[to]/rates[from];show('cxR');document.getElementById('cxV').textContent=fmt(result);document.getElementById('cxRt').innerHTML='سعر الصرف: <strong>1 '+from+' = '+rate.toFixed(4)+' '+to+'</strong>'}
@@ -318,7 +283,6 @@ function cSP(){const q=V('xq'),p=V('xp'),r=V('xr'),type=document.getElementById(
 function cDv(){const p=V('dvp'),q=V('dvq'),d=V('dvd'),y=V('dvy')||1;if(p>0&&q>0&&d>0){const a=d*q,yld=(d/p)*100,t=a*y;show('dvR');document.getElementById('dvA').textContent=fmt(a);document.getElementById('dvY').textContent=yld.toFixed(2)+'%';document.getElementById('dvT').textContent=fmt(t)}else hide('dvR')}
 function cBE(){const b=V('beb'),c=V('bec');if(b>0&&c>0&&c<b){const loss=((c-b)/b)*100,needed=((b-c)/c)*100;show('beR');document.getElementById('beL').textContent=loss.toFixed(2)+'%';document.getElementById('beL').className='rv neg';document.getElementById('beN').textContent='+'+needed.toFixed(2)+'%';document.getElementById('beD').textContent=fmt(b-c)}else if(b>0&&c>=b){show('beR');document.getElementById('beL').textContent='لا توجد خسارة';document.getElementById('beL').className='rv pos';document.getElementById('beN').textContent='-';document.getElementById('beD').textContent='0'}else hide('beR')}
 function cLn(){const a=V('lnA'),r=V('lnR')/100,y=V('lnY'),type=document.getElementById('lnT').value;if(a>0&&r>0&&y>0){const n=type==='monthly'?y*12:y,rate=type==='monthly'?r/12:r;const pmt=a*(rate*Math.pow(1+rate,n))/(Math.pow(1+rate,n)-1);const total=pmt*n;show('lnRes');document.getElementById('lnP').textContent=fmt(pmt);document.getElementById('lnI').textContent=fmt(total-a);document.getElementById('lnTo').textContent=fmt(total)}else hide('lnRes')}
-
 addSpec();loadR();
 </script>
 </body>
