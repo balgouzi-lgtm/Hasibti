@@ -18,7 +18,6 @@
 }
 body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',sans-serif;min-height:100vh;direction:rtl}
 
-/* Shared Header */
 .top-bar{background:var(--bg-darkest);display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:64px;position:sticky;top:0;z-index:50}
 .logo-wrap{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:var(--cream)}
 .logo-icon{background:var(--gold-container);padding:4px;border-radius:8px;display:flex;align-items:center;justify-content:center}
@@ -26,7 +25,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 .back-link{display:flex;align-items:center;gap:4px;color:var(--text-sub);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;cursor:pointer;background:none;border:none;font-family:inherit}
 .back-link:hover{color:var(--gold)}
 
-/* Landing */
 .landing{min-height:100vh;display:flex;flex-direction:column}
 .hero{text-align:center;padding:48px 24px 16px;max-width:900px;margin:0 auto}
 .hero h1{font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--cream);margin-bottom:16px;line-height:1.3}
@@ -52,10 +50,10 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 .landing-footer .links a:hover{color:var(--gold)}
 .landing-footer .copy{color:var(--text-sub);font-size:13px;opacity:0.7}
 
-/* App */
 .app-page{display:none;min-height:100vh;padding-bottom:80px}
 .app-page.active{display:block}
-.container{max-width:600px;margin:0 auto;padding:12px 16px}
+.page-title{text-align:center;padding:16px 0 12px;font-size:18px;font-weight:700;color:var(--gold);border-bottom:0.5px solid rgba(229,194,125,0.08);margin-bottom:12px}
+.container{max-width:600px;margin:0 auto;padding:0 16px 16px}
 .page{display:none;animation:fadeIn 0.3s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -76,9 +74,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 .rv{font-size:26px;font-weight:500;color:var(--gold)}
 .rs{font-size:11.5px;color:rgba(215,226,255,0.4);margin-top:6px}
 .rs strong{color:var(--cream);font-weight:500}
-.met{background:var(--bg-high);border-radius:8px;padding:0.8rem;text-align:center}
-.met .mv{font-size:17px;font-weight:500;margin:0}
-.met .ml{font-size:11px;color:rgba(215,226,255,0.45);margin:0 0 3px}
 .abtn{width:100%;padding:11px;border:1.5px dashed rgba(229,194,125,0.2);border-radius:8px;background:transparent;color:var(--gold);cursor:pointer;font-size:13px;font-weight:500;margin-top:8px;font-family:inherit}
 .abtn-teal{border-color:rgba(110,218,180,0.25);color:var(--teal)}
 .grow{background:var(--bg-high);border:0.5px solid rgba(229,194,125,0.1);border-radius:8px;padding:10px;margin-bottom:6px;display:grid;grid-template-columns:70px 1fr 1fr 70px 28px;gap:6px;align-items:end}
@@ -93,13 +88,12 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 .old-avg-line{margin-top:8px;font-size:12px;color:rgba(215,226,255,0.45)}
 .old-avg-line strong{color:var(--cream)}
 
-/* Compound layout */
 .compound-layout{display:flex;gap:12px;margin-bottom:10px}
-.compound-chart-wrap{flex:1;position:relative;height:300px}
-.compound-stats{display:flex;flex-direction:column;gap:8px;width:130px;flex-shrink:0}
-.compound-stat{background:var(--bg-high);border-radius:8px;padding:12px 10px;text-align:center}
-.compound-stat .cs-label{font-size:10px;color:rgba(215,226,255,0.45);margin:0 0 4px}
-.compound-stat .cs-value{font-size:16px;font-weight:500;margin:0}
+.compound-chart-wrap{flex:1;min-width:0;position:relative;height:300px}
+.compound-stats{display:flex;flex-direction:column;gap:8px;width:120px;flex-shrink:0}
+.compound-stat{background:var(--bg-high);border-radius:8px;padding:10px 8px;text-align:center}
+.compound-stat .cs-label{font-size:10px;color:rgba(215,226,255,0.45);margin:0 0 3px}
+.compound-stat .cs-value{font-size:15px;font-weight:500;margin:0}
 
 .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid rgba(229,194,125,0.1);display:none;justify-content:center;z-index:100;padding:6px 0 env(safe-area-inset-bottom,6px)}
 .bnav-scroll{display:flex;gap:2px;overflow-x:auto;padding:0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -111,17 +105,18 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 @media(max-width:768px){
   .tools-grid{grid-template-columns:1fr}
   .tool-card.span2,.tool-card.span1{grid-column:span 1}
-  .compound-layout{flex-direction:column-reverse}
-  .compound-stats{width:100%;flex-direction:row}
-  .compound-stat{flex:1}
-  .compound-chart-wrap{height:240px}
+  .compound-stats{width:90px}
+  .compound-stat .cs-value{font-size:13px}
+  .compound-stat .cs-label{font-size:9px}
+  .compound-chart-wrap{height:250px}
 }
 @media(max-width:400px){
   .g2{grid-template-columns:1fr}
   .g3{grid-template-columns:1fr 1fr}
   .grow{grid-template-columns:60px 1fr 1fr 60px 24px;gap:4px;padding:8px}
-  .compound-stats{flex-wrap:wrap}
-  .compound-stat{min-width:calc(50% - 4px)}
+  .compound-stats{width:80px}
+  .compound-stat{padding:8px 4px}
+  .compound-stat .cs-value{font-size:12px}
 }
 </style>
 </head>
@@ -129,20 +124,14 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 
 <!-- ==================== LANDING PAGE ==================== -->
 <div class="landing" id="landing">
-
 <header class="top-bar">
-  <div class="logo-wrap">
-    <div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div>
-    <span>حاسبتي المالية</span>
-  </div>
+  <div class="logo-wrap"><div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div><span>حاسبتي المالية</span></div>
 </header>
-
 <main style="flex:1">
   <section class="hero">
     <h1>أدواتك المالية في مكان واحد</h1>
     <p>عشر أدوات مالية ذكية تساعدك في إدارة استثماراتك وحساباتك بسهولة ودقة عالية.</p>
   </section>
-
   <section class="tools-section">
     <h3 class="tools-title">الأدوات الذكية المتاحة</h3>
     <div class="tools-grid">
@@ -159,38 +148,29 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
     </div>
   </section>
 </main>
-
 <footer class="landing-footer">
   <div class="links"><a href="#">من نحن</a><a href="#">الشروط والأحكام</a><a href="#">سياسة الخصوصية</a></div>
   <div class="copy">© ٢٠٢٦ حاسبتي المالية — الحقوق محفوظة</div>
 </footer>
-
 </div>
 
 <!-- ==================== APP PAGE ==================== -->
 <div class="app-page" id="appPage">
-
 <header class="top-bar">
-  <div class="logo-wrap">
-    <div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div>
-    <span>حاسبتي المالية</span>
-  </div>
-  <button class="back-link" onclick="goLanding()">
-    <span>الرئيسية</span>
-    <span class="material-symbols-outlined" style="font-size:18px">arrow_back</span>
-  </button>
+  <div class="logo-wrap"><div class="logo-icon"><span class="material-symbols-outlined">bar_chart</span></div><span>حاسبتي المالية</span></div>
+  <button class="back-link" onclick="goLanding()"><span>الرئيسية</span><span class="material-symbols-outlined" style="font-size:18px">arrow_back</span></button>
 </header>
+
+<div id="pageTitle" class="page-title">متوسط تكلفة الأسهم</div>
 
 <div class="container">
 
-<!-- STOCKS -->
 <div class="page active" id="p-stocks">
   <div class="card"><div class="ct"><span class="d"></span>الأسهم الحالية</div><div class="g2"><div><label class="lbl">عدد الأسهم الحالي</label><input class="inp" type="number" id="sq" placeholder="0" inputmode="decimal" oninput="cS()"></div><div><label class="lbl">متوسط سعر الشراء</label><input class="inp" type="number" id="sp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cS()"></div></div></div>
   <div class="card"><div class="ct"><span class="d" style="background:var(--teal)"></span>الأسهم الجديدة</div><div class="g2"><div><label class="lbl">عدد الأسهم</label><input class="inp" type="number" id="snq" placeholder="0" inputmode="decimal" oninput="cS()"></div><div><label class="lbl">قيمة السهم</label><input class="inp" type="number" id="snp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cS()"></div></div></div>
   <div class="rb" id="sr" style="display:none"><div class="rl">المتوسط الجديد</div><div class="rv" id="sa">0</div><div class="rs">إجمالي الأسهم: <strong id="stq">0</strong> &nbsp; إجمالي التكلفة: <strong id="stc">0</strong></div></div>
 </div>
 
-<!-- GOLD -->
 <div class="page" id="p-gold">
   <div style="display:flex;gap:8px;margin-bottom:12px"><button class="mbtn active" id="gb1" onclick="goldMode('spec')">حسب العيار</button><button class="mbtn" id="gb2" onclick="goldMode('mix')">مختلط</button></div>
   <div id="gm-spec"><div id="specRows"></div><button class="abtn" onclick="addSpec()">+ إضافة ذهب</button></div>
@@ -201,60 +181,51 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
   <div class="rb" id="goldRes" style="display:none"><div class="rl">متوسط تكلفة الجرام</div><div class="rv" id="goldAvg">0.00</div><div class="rs">إجمالي الجرامات: <strong id="goldTG">0</strong> &nbsp; إجمالي التكلفة: <strong id="goldTC">0</strong></div></div>
 </div>
 
-<!-- ZAKAT -->
 <div class="page" id="p-zakat">
   <div class="card"><div class="ct"><span class="d" style="background:var(--teal)"></span>الأصول الخاضعة للزكاة</div><div style="display:grid;gap:10px"><div><label class="lbl">النقد والحسابات البنكية</label><input class="inp" type="number" id="zc" placeholder="0.00" inputmode="decimal" oninput="cZ()"></div><div><label class="lbl">قيمة الأسهم والاستثمارات</label><input class="inp" type="number" id="zs" placeholder="0.00" inputmode="decimal" oninput="cZ()"></div><div><label class="lbl">قيمة الذهب والفضة</label><input class="inp" type="number" id="zg" placeholder="0.00" inputmode="decimal" oninput="cZ()"></div><div><label class="lbl">الديون المستحقة لك</label><input class="inp" type="number" id="zdo" placeholder="0.00" inputmode="decimal" oninput="cZ()"></div></div></div>
   <div class="card"><div class="ct"><span class="d" style="background:var(--red)"></span>الخصومات</div><div><label class="lbl">الديون المستحقة عليك</label><input class="inp" type="number" id="zd" placeholder="0.00" inputmode="decimal" oninput="cZ()"></div></div>
   <div class="rb" id="zr" style="display:none"><div class="rl">مبلغ الزكاة (٢.٥٪)</div><div class="rv" id="za">0</div><div class="rs">صافي الأصول: <strong id="zn">0</strong></div></div>
 </div>
 
-<!-- PROFIT -->
 <div class="page" id="p-profit">
   <div class="card"><div class="ct"><span class="d"></span>بيانات الصفقة</div><div class="g2"><div><label class="lbl">سعر الشراء</label><input class="inp" type="number" id="pb" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cP()"></div><div><label class="lbl">سعر البيع</label><input class="inp" type="number" id="ps" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cP()"></div><div><label class="lbl">عدد الأسهم / الوحدات</label><input class="inp" type="number" id="pq" placeholder="0" inputmode="decimal" oninput="cP()"></div><div><label class="lbl">العمولة (اختياري)</label><input class="inp" type="number" id="pf" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cP()"></div></div></div>
   <div class="rb" id="pr" style="display:none"><div class="rl">صافي الربح / الخسارة</div><div class="rv" id="pa">0</div><div id="pp" style="font-size:14px;margin-top:4px"></div></div>
 </div>
 
-<!-- COMPOUND -->
 <div class="page" id="p-compound">
   <div class="card"><div class="g2"><div><label class="lbl">المبلغ الابتدائي</label><input class="inp" type="number" id="ci" value="10000" step="100" inputmode="decimal" oninput="cC()"></div><div><label class="lbl">العائد السنوي (%)</label><input class="inp" type="number" id="cr" value="10" step="0.5" inputmode="decimal" oninput="cC()"></div><div><label class="lbl">المساهمة الدورية</label><input class="inp" type="number" id="cc" value="1000" step="100" inputmode="decimal" oninput="cC()"></div><div><label class="lbl">نوع المساهمة</label><select class="sel" id="cf" onchange="cC()"><option value="monthly">شهرية</option><option value="yearly">سنوية</option><option value="none">بدون</option></select></div></div><div style="margin-top:14px"><label class="lbl">عدد السنوات: <strong id="cyl" style="color:var(--gold)">10</strong></label><input type="range" class="sld" id="cy" min="1" max="40" value="10" step="1" oninput="cC()"></div></div>
-
   <div class="compound-layout">
     <div class="compound-chart-wrap"><canvas id="cChart"></canvas></div>
     <div class="compound-stats">
-      <div class="compound-stat"><p class="cs-label">القيمة النهائية</p><p class="cs-value" style="color:var(--gold)" id="ctv">0</p></div>
       <div class="compound-stat"><p class="cs-label">المساهمات</p><p class="cs-value" style="color:var(--teal)" id="civ">0</p></div>
       <div class="compound-stat"><p class="cs-label">الأرباح</p><p class="cs-value" style="color:#85B7EB" id="cin">0</p></div>
+      <div class="compound-stat"><p class="cs-label">القيمة النهائية</p><p class="cs-value" style="color:var(--gold)" id="ctv">0</p></div>
       <div class="compound-stat"><p class="cs-label">نسبة الربح الكلية</p><p class="cs-value pos" id="cpct">0%</p></div>
     </div>
   </div>
   <div style="display:flex;justify-content:center;gap:16px;font-size:11px;color:rgba(215,226,255,0.4)"><span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--teal)"></span>المساهمات</span><span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#85B7EB"></span>الأرباح</span></div>
 </div>
 
-<!-- CURRENCY -->
 <div class="page" id="p-currency">
   <div class="card"><div class="ct"><span class="d"></span>محول العملات</div><div style="display:flex;align-items:end;gap:8px"><div style="flex:1"><label class="lbl">المبلغ</label><input class="inp" type="number" id="cxA" value="1000" inputmode="decimal" oninput="cXR()"></div><div style="flex:1"><label class="lbl">من</label><select class="sel" id="cxF" onchange="cXR()"><option value="SAR">ريال سعودي</option><option value="USD" selected>دولار أمريكي</option><option value="EUR">يورو</option><option value="GBP">جنيه إسترليني</option><option value="AED">درهم إماراتي</option><option value="KWD">دينار كويتي</option><option value="EGP">جنيه مصري</option><option value="TRY">ليرة تركية</option></select></div><button class="swap-btn" onclick="cxSw()">⇄</button><div style="flex:1"><label class="lbl">إلى</label><select class="sel" id="cxT" onchange="cXR()"><option value="SAR" selected>ريال سعودي</option><option value="USD">دولار أمريكي</option><option value="EUR">يورو</option><option value="GBP">جنيه إسترليني</option><option value="AED">درهم إماراتي</option><option value="KWD">دينار كويتي</option><option value="EGP">جنيه مصري</option><option value="TRY">ليرة تركية</option></select></div></div></div>
   <div class="rb" id="cxR"><div class="rl">الناتج</div><div class="rv" id="cxV">0</div><div class="rs" id="cxRt" style="margin-top:8px"></div><div id="cxSt" style="font-size:11px;color:rgba(215,226,255,0.3);margin-top:6px"></div></div>
 </div>
 
-<!-- SPLIT -->
 <div class="page" id="p-split">
-  <div class="card"><div class="ct"><span class="d"></span>تقسيم الأسهم (Stock Split)</div><div class="g2"><div><label class="lbl">عدد الأسهم الحالي</label><input class="inp" type="number" id="xq" placeholder="0" inputmode="decimal" oninput="cSP()"></div><div><label class="lbl">سعر السهم الحالي</label><input class="inp" type="number" id="xp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cSP()"></div></div><div class="g2" style="margin-top:10px"><div><label class="lbl">نسبة التقسيم</label><input class="inp" type="number" id="xr" placeholder="مثال: 4" min="1" inputmode="decimal" oninput="cSP()"></div><div><label class="lbl">نوع التقسيم</label><select class="sel" id="xt" onchange="cSP()"><option value="split">تقسيم (Split)</option><option value="reverse">عكسي (Reverse)</option></select></div></div></div>
+  <div class="card"><div class="ct"><span class="d"></span>تقسيم الأسهم</div><div class="g2"><div><label class="lbl">عدد الأسهم الحالي</label><input class="inp" type="number" id="xq" placeholder="0" inputmode="decimal" oninput="cSP()"></div><div><label class="lbl">سعر السهم الحالي</label><input class="inp" type="number" id="xp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cSP()"></div></div><div class="g2" style="margin-top:10px"><div><label class="lbl">نسبة التقسيم</label><input class="inp" type="number" id="xr" placeholder="مثال: 4" min="1" inputmode="decimal" oninput="cSP()"></div><div><label class="lbl">نوع التقسيم</label><select class="sel" id="xt" onchange="cSP()"><option value="split">تقسيم (Split)</option><option value="reverse">عكسي (Reverse)</option></select></div></div></div>
   <div class="rb" id="xRes" style="display:none"><div class="g2" style="gap:16px"><div><div class="rl">عدد الأسهم بعد التقسيم</div><div class="rv" id="xnq" style="font-size:22px">0</div></div><div><div class="rl">سعر السهم بعد التقسيم</div><div class="rv" id="xnp" style="font-size:22px">0</div></div></div><div class="rs" style="margin-top:10px">القيمة الإجمالية لا تتغير: <strong id="xtv">0</strong></div></div>
 </div>
 
-<!-- DIVIDEND -->
 <div class="page" id="p-dividend">
-  <div class="card"><div class="ct"><span class="d" style="background:var(--teal)"></span>حاسبة توزيعات الأرباح</div><div class="g2"><div><label class="lbl">سعر السهم</label><input class="inp" type="number" id="dvp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">عدد الأسهم</label><input class="inp" type="number" id="dvq" placeholder="0" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">التوزيع للسهم (سنوي)</label><input class="inp" type="number" id="dvd" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">سنوات الاحتفاظ</label><input class="inp" type="number" id="dvy" value="5" min="1" inputmode="decimal" oninput="cDv()"></div></div></div>
+  <div class="card"><div class="ct"><span class="d" style="background:var(--teal)"></span>توزيعات الأرباح</div><div class="g2"><div><label class="lbl">سعر السهم</label><input class="inp" type="number" id="dvp" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">عدد الأسهم</label><input class="inp" type="number" id="dvq" placeholder="0" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">التوزيع للسهم (سنوي)</label><input class="inp" type="number" id="dvd" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cDv()"></div><div><label class="lbl">سنوات الاحتفاظ</label><input class="inp" type="number" id="dvy" value="5" min="1" inputmode="decimal" oninput="cDv()"></div></div></div>
   <div class="rb" id="dvR" style="display:none"><div class="g3" style="gap:12px"><div><div class="rl">العائد السنوي</div><div class="rv" id="dvA" style="font-size:20px">0</div></div><div><div class="rl">نسبة العائد</div><div class="rv" id="dvY" style="font-size:20px">0%</div></div><div><div class="rl">إجمالي التوزيعات</div><div class="rv" id="dvT" style="font-size:20px;color:var(--teal)">0</div></div></div></div>
 </div>
 
-<!-- BREAKEVEN -->
 <div class="page" id="p-breakeven">
-  <div class="card"><div class="ct"><span class="d" style="background:var(--red)"></span>حاسبة نقطة التعادل</div><div class="g2"><div><label class="lbl">سعر الشراء</label><input class="inp" type="number" id="beb" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cBE()"></div><div><label class="lbl">السعر الحالي</label><input class="inp" type="number" id="bec" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cBE()"></div></div></div>
+  <div class="card"><div class="ct"><span class="d" style="background:var(--red)"></span>نقطة التعادل</div><div class="g2"><div><label class="lbl">سعر الشراء</label><input class="inp" type="number" id="beb" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cBE()"></div><div><label class="lbl">السعر الحالي</label><input class="inp" type="number" id="bec" placeholder="0.00" step="0.01" inputmode="decimal" oninput="cBE()"></div></div></div>
   <div class="rb" id="beR" style="display:none"><div class="g3" style="gap:12px"><div><div class="rl">نسبة الخسارة الحالية</div><div class="rv neg" id="beL" style="font-size:20px">0%</div></div><div><div class="rl">الارتفاع المطلوب للتعادل</div><div class="rv pos" id="beN" style="font-size:20px">0%</div></div><div><div class="rl">الفرق عن الشراء</div><div class="rv" id="beD" style="font-size:20px">0</div></div></div></div>
 </div>
 
-<!-- LOAN -->
 <div class="page" id="p-loan">
   <div class="card"><div class="ct"><span class="d"></span>حاسبة القرض / التمويل</div><div class="g2"><div><label class="lbl">مبلغ التمويل</label><input class="inp" type="number" id="lnA" placeholder="0" inputmode="decimal" oninput="cLn()"></div><div><label class="lbl">الفائدة السنوية (%)</label><input class="inp" type="number" id="lnR" placeholder="0" step="0.1" inputmode="decimal" oninput="cLn()"></div><div><label class="lbl">المدة (سنوات)</label><input class="inp" type="number" id="lnY" placeholder="0" min="1" inputmode="decimal" oninput="cLn()"></div><div><label class="lbl">نوع السداد</label><select class="sel" id="lnT" onchange="cLn()"><option value="monthly">شهري</option><option value="yearly">سنوي</option></select></div></div></div>
   <div class="rb" id="lnRes" style="display:none"><div class="g3" style="gap:12px"><div><div class="rl">القسط</div><div class="rv" id="lnP" style="font-size:20px">0</div></div><div><div class="rl">إجمالي الفوائد</div><div class="rv" id="lnI" style="font-size:20px;color:var(--red)">0</div></div><div><div class="rl">إجمالي السداد</div><div class="rv" id="lnTo" style="font-size:20px">0</div></div></div></div>
@@ -263,7 +234,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bnav" id="bottomNav">
 <div class="bnav-scroll">
   <button class="bnav-item active" onclick="go('stocks')"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-5"/></svg><span>الأسهم</span></button>
@@ -282,6 +252,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans Arabic',s
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 const pgs=['stocks','gold','zakat','profit','compound','currency','split','dividend','breakeven','loan'];
+const pgTitles={stocks:'متوسط تكلفة الأسهم',gold:'متوسط تكلفة الذهب',zakat:'حاسبة الزكاة',profit:'الربح والخسارة',compound:'الفائدة المركبة',currency:'محول العملات',split:'تقسيم الأسهم',dividend:'توزيعات الأرباح',breakeven:'نقطة التعادل',loan:'حاسبة القرض'};
 let specEnt=[],specId=0,mixEnt=[],mixId=0,curGoldMode='spec',chart=null;
 const defR={USD:1,SAR:3.75,EUR:0.92,GBP:0.79,AED:3.67,KWD:0.31,EGP:50.5,TRY:36.2};
 let lR=null;
@@ -296,7 +267,7 @@ function openApp(page){
   document.getElementById('landing').style.display='none';
   document.getElementById('appPage').classList.add('active');
   document.getElementById('bottomNav').style.display='flex';
-  if(page)go(page);
+  if(page)go(page);else go('stocks');
   window.scrollTo({top:0});
   setTimeout(cC,100);
 }
@@ -309,50 +280,23 @@ function goLanding(){
 function go(p){
   pgs.forEach(t=>document.getElementById('p-'+t).classList.toggle('active',t===p));
   document.querySelectorAll('.bnav-item').forEach((b,i)=>b.classList.toggle('active',i===pgs.indexOf(p)));
+  document.getElementById('pageTitle').textContent=pgTitles[p]||'';
   if(p==='compound')setTimeout(cC,50);
   if(p==='currency')cXR();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function cS(){
-  const cq=V('sq'),cp=V('sp'),nq=V('snq'),np=V('snp');
-  const tq=cq+nq,tc=cq*cp+nq*np,avg=tq>0?tc/tq:0;
-  if(tq>0){show('sr');document.getElementById('sa').textContent=fmt(avg);document.getElementById('stq').textContent=Math.round(tq);document.getElementById('stc').textContent=fmt(tc)}else hide('sr');
-}
+function cS(){const cq=V('sq'),cp=V('sp'),nq=V('snq'),np=V('snp');const tq=cq+nq,tc=cq*cp+nq*np,avg=tq>0?tc/tq:0;if(tq>0){show('sr');document.getElementById('sa').textContent=fmt(avg);document.getElementById('stq').textContent=Math.round(tq);document.getElementById('stc').textContent=fmt(tc)}else hide('sr')}
 
-function goldMode(m){
-  curGoldMode=m;
-  document.getElementById('gm-spec').style.display=m==='spec'?'block':'none';
-  document.getElementById('gm-mix').style.display=m==='mix'?'block':'none';
-  document.getElementById('gb1').classList.toggle('active',m==='spec');
-  document.getElementById('gb2').classList.toggle('active',m==='mix');
-  hide('goldRes');
-}
-function makeGoldRow(id,prefix,container){
-  const d=document.createElement('div');d.className='grow';d.id=prefix+'r'+id;
-  d.innerHTML=`<div><label class="lbl" style="font-size:11px">العيار</label><select class="sel" id="${prefix}k${id}" onchange="calcGold()" style="padding:7px 4px;font-size:12px"><option value="24">٢٤</option><option value="21">٢١</option><option value="18">١٨</option></select></div><div><label class="lbl" style="font-size:11px">الجرامات</label><input class="inp" type="number" id="${prefix}g${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">سعر الجرام</label><input class="inp" type="number" id="${prefix}p${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">الناتج</label><div id="${prefix}v${id}" style="font-size:13px;font-weight:500;color:var(--gold);padding:8px 0">-</div></div><button class="rm" onclick="rmGold('${prefix}',${id})">✕</button>`;
-  document.getElementById(container).appendChild(d);
-}
+function goldMode(m){curGoldMode=m;document.getElementById('gm-spec').style.display=m==='spec'?'block':'none';document.getElementById('gm-mix').style.display=m==='mix'?'block':'none';document.getElementById('gb1').classList.toggle('active',m==='spec');document.getElementById('gb2').classList.toggle('active',m==='mix');hide('goldRes')}
+function makeGoldRow(id,prefix,container){const d=document.createElement('div');d.className='grow';d.id=prefix+'r'+id;d.innerHTML=`<div><label class="lbl" style="font-size:11px">العيار</label><select class="sel" id="${prefix}k${id}" onchange="calcGold()" style="padding:7px 4px;font-size:12px"><option value="24">٢٤</option><option value="21">٢١</option><option value="18">١٨</option></select></div><div><label class="lbl" style="font-size:11px">الجرامات</label><input class="inp" type="number" id="${prefix}g${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">سعر الجرام</label><input class="inp" type="number" id="${prefix}p${id}" placeholder="0" step="0.01" inputmode="decimal" oninput="calcGold()" style="font-size:13px;padding:7px"></div><div><label class="lbl" style="font-size:11px">الناتج</label><div id="${prefix}v${id}" style="font-size:13px;font-weight:500;color:var(--gold);padding:8px 0">-</div></div><button class="rm" onclick="rmGold('${prefix}',${id})">✕</button>`;document.getElementById(container).appendChild(d)}
 function addSpec(){const id=specId++;specEnt.push(id);makeGoldRow(id,'s','specRows')}
 function addMix(){const id=mixId++;mixEnt.push(id);makeGoldRow(id,'m','mixRows')}
-function rmGold(prefix,id){
-  if(prefix==='s')specEnt=specEnt.filter(e=>e!==id);else mixEnt=mixEnt.filter(e=>e!==id);
-  const el=document.getElementById(prefix+'r'+id);if(el)el.remove();calcGold();
-}
-function sumRows(entries,prefix){
-  let tg=0,tc=0;
-  entries.forEach(id=>{const g=+(document.getElementById(prefix+'g'+id).value)||0,p=+(document.getElementById(prefix+'p'+id).value)||0,c=g*p;tg+=g;tc+=c;document.getElementById(prefix+'v'+id).textContent=c>0?fmt(c):'-'});
-  return{tg,tc};
-}
-function calcGold(){
-  let totalG=0,totalC=0;
-  if(curGoldMode==='spec'){const r=sumRows(specEnt,'s');totalG=r.tg;totalC=r.tc}
-  else{const og=V('oldG'),oc=V('oldC');if(og>0&&oc>0){document.getElementById('oldAvgLine').style.display='block';document.getElementById('oldAvg').textContent=fmt(oc/og)}else{document.getElementById('oldAvgLine').style.display='none'}totalG+=og;totalC+=oc;const r=sumRows(mixEnt,'m');totalG+=r.tg;totalC+=r.tc}
-  if(totalG>0){show('goldRes');document.getElementById('goldAvg').textContent=fmt(totalC/totalG);document.getElementById('goldTG').textContent=fmt(totalG);document.getElementById('goldTC').textContent=fmt(totalC)}else hide('goldRes');
-}
+function rmGold(prefix,id){if(prefix==='s')specEnt=specEnt.filter(e=>e!==id);else mixEnt=mixEnt.filter(e=>e!==id);const el=document.getElementById(prefix+'r'+id);if(el)el.remove();calcGold()}
+function sumRows(entries,prefix){let tg=0,tc=0;entries.forEach(id=>{const g=+(document.getElementById(prefix+'g'+id).value)||0,p=+(document.getElementById(prefix+'p'+id).value)||0,c=g*p;tg+=g;tc+=c;document.getElementById(prefix+'v'+id).textContent=c>0?fmt(c):'-'});return{tg,tc}}
+function calcGold(){let totalG=0,totalC=0;if(curGoldMode==='spec'){const r=sumRows(specEnt,'s');totalG=r.tg;totalC=r.tc}else{const og=V('oldG'),oc=V('oldC');if(og>0&&oc>0){document.getElementById('oldAvgLine').style.display='block';document.getElementById('oldAvg').textContent=fmt(oc/og)}else{document.getElementById('oldAvgLine').style.display='none'}totalG+=og;totalC+=oc;const r=sumRows(mixEnt,'m');totalG+=r.tg;totalC+=r.tc}if(totalG>0){show('goldRes');document.getElementById('goldAvg').textContent=fmt(totalC/totalG);document.getElementById('goldTG').textContent=fmt(totalG);document.getElementById('goldTC').textContent=fmt(totalC)}else hide('goldRes')}
 
 function cZ(){const net=V('zc')+V('zs')+V('zg')+V('zdo')-V('zd'),zk=net>0?net*0.025:0;if(net>0){show('zr');document.getElementById('za').textContent=fmt(zk);document.getElementById('zn').textContent=fmt(net)}else hide('zr')}
-
 function cP(){const b=V('pb'),s=V('ps'),q=V('pq'),f=V('pf');if(b>0&&s>0&&q>0){const pf=(s-b)*q-f,pct=((s-b)/b)*100;show('pr');const el=document.getElementById('pa');el.textContent=fmt(pf);el.className='rv '+(pf>=0?'pos':'neg');const pp=document.getElementById('pp');pp.textContent=(pct>=0?'+':'')+pct.toFixed(2)+'%';pp.className=pf>=0?'pos':'neg'}else hide('pr')}
 
 function cC(){
@@ -360,27 +304,19 @@ function cC(){
   const frq=document.getElementById('cf').value;document.getElementById('cyl').textContent=yrs;
   const labels=[],dI=[],dIn=[];let bal=P,tC=P;
   for(let y=0;y<=yrs;y++){labels.push(y===0?'٠':y);dI.push(Math.round(tC));dIn.push(Math.round(Math.max(0,bal-tC)));if(y<yrs){if(frq==='monthly'){for(let m=0;m<12;m++){bal+=con;tC+=con;bal*=(1+r/12)}}else if(frq==='yearly'){bal+=con;tC+=con;bal*=(1+r)}else bal*=(1+r)}}
-  const profit=Math.max(0,bal-tC);
-  const pctProfit=tC>0?((bal-tC)/tC)*100:0;
-  document.getElementById('ctv').textContent=fI(bal);
-  document.getElementById('civ').textContent=fI(tC);
-  document.getElementById('cin').textContent=fI(profit);
-  document.getElementById('cpct').textContent=(pctProfit>=0?'+':'')+pctProfit.toFixed(1)+'%';
+  const profit=Math.max(0,bal-tC);const pctProfit=tC>0?((bal-tC)/tC)*100:0;
+  document.getElementById('civ').textContent=fI(tC);document.getElementById('cin').textContent=fI(profit);document.getElementById('ctv').textContent=fI(bal);document.getElementById('cpct').textContent=(pctProfit>=0?'+':'')+pctProfit.toFixed(1)+'%';
   if(chart)chart.destroy();
   chart=new Chart(document.getElementById('cChart'),{type:'bar',data:{labels,datasets:[{label:'المساهمات',data:dI,backgroundColor:'#6edab4',borderRadius:{topLeft:0,topRight:0},barPercentage:0.7},{label:'الأرباح',data:dIn,backgroundColor:'#85B7EB',borderRadius:{topLeft:3,topRight:3},barPercentage:0.7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:'rtl',callbacks:{label:ctx=>ctx.dataset.label+': '+fI(ctx.raw)}}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},autoSkip:true,maxTicksLimit:15}},y:{stacked:true,grid:{color:'rgba(215,226,255,0.05)'},ticks:{color:'rgba(215,226,255,0.3)',font:{size:10},callback:v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}}}}});
 }
 
-async function loadR(){try{const res=await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');const d=await res.json();if(d&&d.usd){lR={USD:1,SAR:d.usd.sar,EUR:d.usd.eur,GBP:d.usd.gbp,AED:d.usd.aed,KWD:d.usd.kwd,EGP:d.usd.egp,TRY:d.usd.try};document.getElementById('cxSt').textContent='أسعار محدّثة'}}catch(e){document.getElementById('cxSt').textContent='أسعار تقريبية'}cXR();}
+async function loadR(){try{const res=await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');const d=await res.json();if(d&&d.usd){lR={USD:1,SAR:d.usd.sar,EUR:d.usd.eur,GBP:d.usd.gbp,AED:d.usd.aed,KWD:d.usd.kwd,EGP:d.usd.egp,TRY:d.usd.try};document.getElementById('cxSt').textContent='أسعار محدّثة'}}catch(e){document.getElementById('cxSt').textContent='أسعار تقريبية'}cXR()}
 function gRt(){return lR||defR}
 function cXR(){const amt=V('cxA'),from=document.getElementById('cxF').value,to=document.getElementById('cxT').value;const rates=gRt(),inUSD=amt/rates[from],result=inUSD*rates[to],rate=rates[to]/rates[from];show('cxR');document.getElementById('cxV').textContent=fmt(result);document.getElementById('cxRt').innerHTML='سعر الصرف: <strong>1 '+from+' = '+rate.toFixed(4)+' '+to+'</strong>'}
 function cxSw(){const f=document.getElementById('cxF'),t=document.getElementById('cxT');const tmp=f.value;f.value=t.value;t.value=tmp;cXR()}
-
 function cSP(){const q=V('xq'),p=V('xp'),r=V('xr'),type=document.getElementById('xt').value;if(q>0&&p>0&&r>0){const nq=type==='split'?q*r:q/r,np=type==='split'?p/r:p*r;show('xRes');document.getElementById('xnq').textContent=fI(nq);document.getElementById('xnp').textContent=fmt(np);document.getElementById('xtv').textContent=fmt(q*p)}else hide('xRes')}
-
 function cDv(){const p=V('dvp'),q=V('dvq'),d=V('dvd'),y=V('dvy')||1;if(p>0&&q>0&&d>0){const a=d*q,yld=(d/p)*100,t=a*y;show('dvR');document.getElementById('dvA').textContent=fmt(a);document.getElementById('dvY').textContent=yld.toFixed(2)+'%';document.getElementById('dvT').textContent=fmt(t)}else hide('dvR')}
-
 function cBE(){const b=V('beb'),c=V('bec');if(b>0&&c>0&&c<b){const loss=((c-b)/b)*100,needed=((b-c)/c)*100;show('beR');document.getElementById('beL').textContent=loss.toFixed(2)+'%';document.getElementById('beL').className='rv neg';document.getElementById('beN').textContent='+'+needed.toFixed(2)+'%';document.getElementById('beD').textContent=fmt(b-c)}else if(b>0&&c>=b){show('beR');document.getElementById('beL').textContent='لا توجد خسارة';document.getElementById('beL').className='rv pos';document.getElementById('beN').textContent='-';document.getElementById('beD').textContent='0'}else hide('beR')}
-
 function cLn(){const a=V('lnA'),r=V('lnR')/100,y=V('lnY'),type=document.getElementById('lnT').value;if(a>0&&r>0&&y>0){const n=type==='monthly'?y*12:y,rate=type==='monthly'?r/12:r;const pmt=a*(rate*Math.pow(1+rate,n))/(Math.pow(1+rate,n)-1);const total=pmt*n;show('lnRes');document.getElementById('lnP').textContent=fmt(pmt);document.getElementById('lnI').textContent=fmt(total-a);document.getElementById('lnTo').textContent=fmt(total)}else hide('lnRes')}
 
 addSpec();loadR();
